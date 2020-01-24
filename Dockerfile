@@ -7,6 +7,8 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 COPY rsyslog.conf /etc/
+RUN mkdir -p /etc/rsyslogdocker.d
+COPY 1-send_log_to_console.conf /etc/rsyslogdocker.d
 
 EXPOSE 514/tcp 514/udp
 
