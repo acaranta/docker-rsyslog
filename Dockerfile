@@ -1,4 +1,4 @@
-FROM ubuntu:18.10
+FROM ubuntu:20.04
 MAINTAINER Arthur Caranta <arthu@caranta.com>
 
 RUN apt-get update && \
