@@ -54,9 +54,24 @@ Something like (not tested):
 
 Just create your config files and in your Dockerfile, copy them to `/etc/rsyslog.d/`.
 
+## Simple use as a Syslog Container
+This container can be used as a simple rsyslog container for your infrastructure, just mount rsyslog.conf and/or additionnal config files in /etc/rsyslog.d.
+Remember also to mount a volume to /var/log to get the logs out of the container.
+/etc/localtime can also be mounted to properly sync the timezone from your host.
 
-## Read logs
+Here is a docer-compose example :
+```
+version: '2.4'
+services:
+  rsyslog:
+    image: acaranta/docker-rsyslog:latest
+    volumes:
+      - <volume_to_your_log_storage>:/var/log
+      - /etc/localtime:/etc/localtime:ro
+      - <your_conf.d files>/rsyslog/conf.d:/etc/rsyslog.d
+      - <your_config_file>/rsyslog/rsyslog.conf:/etc/rsyslog.conf
+    ports:
+      - 514:514
+      - 514:514/udp
 
-Assuming you're using `LEVEL1` priority, or added your own config to send logs to *stderr* or *stdout*, your logs can be seen with:
-
-    docker logs -f syslog
+```
