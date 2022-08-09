@@ -21,7 +21,7 @@ Another improvement is that I wanted to do `docker logs syslog` to see my logs, 
 
 First, start the rsyslog container:
 
-    docker run -d --name syslog helder/rsyslog
+    docker run -d --name syslog acaranta/docker-rsyslog
 
 ### 1. Symlink to /dev/log
 
