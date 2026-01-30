@@ -144,34 +144,6 @@ ruleset(name="process_stats") {
 }
    ```
 
-2. **Run the exporter** (located at `/usr/local/bin/rsyslog_exporter`):
-
-   ```bash
-   /usr/local/bin/rsyslog_exporter --rsyslog.stats-file=/var/log/rsyslog-stats.log
-   ```
-
-   The exporter listens on port `9104` by default.
-
-3. **Docker Compose example with metrics**:
-
-   ```yaml
-   services:
-     rsyslog:
-       image: acaranta/docker-rsyslog:latest
-       volumes:
-         - logs:/var/log
-         - ./rsyslog-stats.conf:/etc/rsyslog.d/stats.conf
-       ports:
-         - "514:514"
-         - "514:514/udp"
-         - "9104:9104"  # Prometheus metrics
-       command: >
-         bash -c "rsyslogd -n &
-                  /usr/local/bin/rsyslog_exporter --rsyslog.stats-file=/var/log/rsyslog-stats.log"
-
-   volumes:
-     logs:
-   ```
 
 ### Prometheus Scrape Configuration
 
