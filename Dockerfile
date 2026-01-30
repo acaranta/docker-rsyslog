@@ -24,4 +24,4 @@ RUN mkdir -p /etc/rsyslogdocker.d
 
 EXPOSE 514/tcp 514/udp
 
-CMD kill -9 $(cat /run/rsyslogd.pid) ; rm /run/rsyslogs.pid ;rsyslogd -n
+CMD kill -9 $(cat /run/rsyslogd.pid 2>/dev/null) 2>/dev/null ; rm /run/rsyslogd.pid 2>/dev/null ; echo "Starting Rsyslog..." ; rsyslogd -n
