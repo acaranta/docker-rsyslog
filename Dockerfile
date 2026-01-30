@@ -18,7 +18,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 COPY --from=build-exporter /build/rsyslog_exporter /usr/local/bin/rsyslog_exporter
-
+RUN chmod a+rx /usr/local/bin/rsyslog_exporter
 COPY rsyslog.conf /etc/
 RUN mkdir -p /etc/rsyslogdocker.d
 
