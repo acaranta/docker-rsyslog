@@ -125,17 +125,23 @@ For full documentation on available metrics and configuration options, see the [
 1. **Configure rsyslog to output stats** by adding to your rsyslog config:
 
    ```
-   # Enable impstats module
-   module(load="impstats"
-          interval="10"
-          format="json"
-          resetCounters="on"
-          ruleset="stats")
+module(load="omprog")
 
-   # Create ruleset to write stats to a file
-   ruleset(name="stats") {
-       action(type="omfile" file="/var/log/rsyslog-stats.log")
-   }
+module(
+  load="impstats"
+  interval="10"
+  format="json"
+  resetCounters="off"
+  ruleset="process_stats"
+)
+
+ruleset(name="process_stats") {
+  action(
+    type="omprog"
+    name="to_exporter"
+    binary="/usr/local/bin/rsyslog_exporter"
+  )
+}
    ```
 
 2. **Run the exporter** (located at `/usr/local/bin/rsyslog_exporter`):
